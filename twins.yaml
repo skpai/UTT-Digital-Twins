@@ -1,0 +1,73 @@
+# =============================================================================
+# MISSION 1: describe the rocket as data.
+#
+# Every REAL thing on the rocket is one entry (one "twin") in the list below:
+#
+#   id    : unique key, used by links            (use the ids given in the spec sheet!)
+#   type  : what kind of thing it is             (Rocket, Stage, Engine, Tank, Sensor, ...)
+#   name  : a readable name
+#   props : design values that do not change     (from the datasheet)
+#   state : values that change during operations (status, tank level, ...)
+#   links : relations to other twins             (a Stage HAS_ENGINE an Engine)
+#
+# The rocket is already written for you, as an example. Add everything else from the spec
+# sheet, then add every relation you use to RELATIONS in twin.py, and run:
+#
+#     python check.py 1
+#
+# The error messages tell you what is missing or wrong. Read them!
+# =============================================================================
+#
+# SPEC SHEET: the Aether-2 rocket
+# -------------------------------
+#
+# The rocket Aether-2 (id: rocket) is 3.7 m in diameter, with a drag coefficient of 0.3.
+# It has two stages, it is controlled by a flight computer, it carries a payload, and it is
+# launched from a launch site.
+#
+#   Launch site     id: pad        name: SLC-40
+#   Flight computer id: fc         name: Flight computer A      status: nominal
+#   Payload         id: payload    name: Demo satellite         mass_kg: 2000
+#
+#   Stage 1         id: stage-1    stage_number: 1   dry_mass_kg: 22200   burn_time_s: 150
+#                   It has the 9 engines and the 2 tanks below.
+#   Stage 2         id: stage-2    stage_number: 2   dry_mass_kg: 4000
+#                   No engines or tanks in this workshop: it rides along as dead weight.
+#
+#   9 engines       ids: eng-1 ... eng-9     names: Merlin-1 ... Merlin-9
+#                   each: thrust_kn: 845     status: nominal
+#
+#   2 tanks         id: tank-lox   name: LOX tank    propellant: LOX    level_kg: 290000
+#                   id: tank-rp1   name: RP-1 tank   propellant: RP-1   level_kg: 110000
+#
+#   2 sensors       id: imu        name: IMU-1        kind: imu         status: nominal
+#                   id: altimeter  name: Altimeter A  kind: altimeter   status: nominal
+#                   Both sensors MONITOR stage 1.
+#
+# Tips
+#   - Which values are props (never change) and which are state (change in flight)?
+#   - Units: thrust in kN, masses in kg, time in s. Exactly as in the spec sheet.
+#   - Indentation matters in YAML: use spaces, never tabs.
+#   - A link points to an id. A typo in an id = an error when you load the file.
+# =============================================================================
+twins:
+
+  # --- The rocket (the example) ------------------------------------------------
+  - id: rocket
+    type: Rocket
+    name: Aether-2
+    props:
+      diameter_m: 3.7
+      drag_coefficient: 0.3
+    links:
+      HAS_STAGE:
+        - stage-1
+        - stage-2
+      CONTROLLED_BY:
+        - fc
+      CARRIES:
+        - payload
+      LAUNCHED_FROM:
+        - pad
+
+  # --- Your twins below --------------------------------------------------------

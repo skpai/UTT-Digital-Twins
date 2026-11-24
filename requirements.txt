@@ -1,0 +1,10 @@
+# Python 3.10+
+pyyaml>=6.0
+pandas>=2.0
+streamlit>=1.40
+scikit-learn>=1.4    # Step 6: anomaly detection (brings numpy and joblib)
+
+# for notebook/rocket_digital_twin.ipynb
+matplotlib>=3.8
+ipykernel>=6.29
+networkx>=3.2
