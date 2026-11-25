@@ -17,7 +17,7 @@ twins.yaml ──► TwinGraph ──► RocketTwin.config() ──► physics.s
 ```
 
 Read along in `docs/`: `student_guide.pdf` explains every step (the ideas, the given code, and a
-*Your turn* box for each gap) and `workshop_slides.pdf` is the deck shown in the room.
+*Your turn* box for each gap) and `workshop_slides.pptx` is the deck shown in the room.
 `rocket_twin.ipynb` runs **your** code mission by mission: tables, a drawing of your graph, your
 poll, the simulator, and the solutions once they unlock.
 
