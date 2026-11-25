@@ -6,6 +6,9 @@ See a solution once the instructor opens it.
     python unlock.py 1a --apply       ...and put it into the code, in place of the gap
     python unlock.py 1 --apply        every TODO of Step 1 at once
     python unlock.py app.py           a whole file: it is saved to revealed/app.py
+    python unlock.py twins.yaml --apply   ...or put in place (yours is kept as twins.yaml.mine)
+
+From Python:   from unlock import unlock;  unlock("1a")  or  unlock("1", apply=True)
 
 A solution opens only when BOTH are true: the password is right (the instructor writes it on
 the board) and the local time has passed its unlock time.
@@ -63,8 +66,17 @@ def _opens_at(when: str) -> dt.datetime:
     return dt.datetime.combine(dt.date.today(), dt.datetime.strptime(when, "%H:%M").time())
 
 
-def _apply(name: str, item: dict, code: str) -> None:
+def _apply(name: str, item: dict, code: str, in_place: bool = False) -> None:
     if "file" not in item:                      # a whole file
+        if in_place:
+            path = HERE / name
+            if path.exists():
+                mine = path.with_name(name + ".mine")
+                mine.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+                print(f"  your version is kept as {mine.name}")
+            path.write_text(code, encoding="utf-8")
+            print(f"  written to {name}")
+            return
         REVEALED.mkdir(exist_ok=True)
         (REVEALED / name).write_text(code, encoding="utf-8")
         print(f"  saved to revealed/{name}")
@@ -83,7 +95,8 @@ def _apply(name: str, item: dict, code: str) -> None:
 
 
 def main(argv: list[str]) -> int:
-    sys.stdout.reconfigure(errors="replace")    # Windows consoles cannot print every character
+    if hasattr(sys.stdout, "reconfigure"):      # Windows consoles cannot print every character
+        sys.stdout.reconfigure(errors="replace")
     if not LOCKED.exists():
         print("No solutions.lock here: nothing to unlock.")
         return 1
@@ -121,12 +134,23 @@ def main(argv: list[str]) -> int:
             return 1
         print(f"\n===== {n} " + "=" * 40)
         if "file" not in items[n]:              # a whole file: save it, do not flood the terminal
-            _apply(n, items[n], code)
+            _apply(n, items[n], code, in_place=apply)
             continue
         print(code.rstrip("\n"))
         if apply:
             _apply(n, items[n], code)
     return 0
+
+
+def unlock(name: str = "", apply: bool = False, password: str | None = None) -> None:
+    """For notebooks: unlock("1a"), unlock("1", apply=True), unlock() lists everything.
+    Asks for the password unless you pass it."""
+    args = [name] if name else []
+    if name and password:
+        args.append(password)
+    if apply:
+        args.append("--apply")
+    main(args)
 
 
 if __name__ == "__main__":

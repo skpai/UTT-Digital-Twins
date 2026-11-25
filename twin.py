@@ -31,6 +31,10 @@ HERE = Path(__file__).parent
 #     HAS_ENGINE      HAS_TANK      MONITORS
 #     CONTROLLED_BY   CARRIES       LAUNCHED_FROM
 #
+#   The types of twin, in no particular order (spelled exactly like this):
+#
+#     Tank   Payload   Sensor   Rocket   LaunchSite   Engine   FlightComputer   Stage
+#
 #   Write each one like the example:   "RELATION_NAME": ("FromType", "ToType"),
 RELATIONS = {"HAS_STAGE": ("Rocket", "Stage")}
 

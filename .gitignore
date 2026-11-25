@@ -9,3 +9,4 @@ models/
 
 # solutions you unlocked (python unlock.py)
 revealed/
+*.mine

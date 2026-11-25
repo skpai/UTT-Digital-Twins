@@ -16,6 +16,11 @@ twins.yaml ──► TwinGraph ──► RocketTwin.config() ──► physics.s
                                                       (the open challenge)
 ```
 
+Read along in `docs/`: `student_guide.pdf` explains every step (the ideas, the given code, and a
+*Your turn* box for each gap) and `workshop_slides.pdf` is the deck shown in the room.
+`rocket_twin.ipynb` runs **your** code mission by mission: tables, a drawing of your graph, your
+poll, the simulator, and the solutions once they unlock.
+
 ## Setup (10 min)
 
 ```bash
@@ -173,8 +178,11 @@ At the end of each mission the instructor writes a password on the board. From t
 python unlock.py              # what can be opened, and from what time
 python unlock.py 1a           # show the solution of TODO(1a)
 python unlock.py 1 --apply    # put every Step 1 solution into the code
-python unlock.py twins.yaml   # a whole file, saved to revealed/twins.yaml
+python unlock.py twins.yaml --apply   # the full twins.yaml (yours is kept as twins.yaml.mine)
+python unlock.py app.py       # a reference file, saved to revealed/app.py
 ```
+
+In `rocket_twin.ipynb` the same works as `unlock("1a")` or `unlock("1", apply=True)`.
 
 ## What to remember
 

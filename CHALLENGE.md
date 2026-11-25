@@ -29,7 +29,7 @@ as you can explain it.
 4. **One screen** that shows a faulty flight: plan against what the sensors saw, and the moment
    your alert fires. A plot in a notebook or an app, as you like.
 
-**Checkpoints** (your Capcom shows the instructor):
+**Checkpoints** (show the instructor):
 - **16:55**: your dataset exists. How many rows, which columns, which labels?
 - **17:20**: your alert fires on a thrust loss at T+40.
 
